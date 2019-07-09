@@ -62,6 +62,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Bullet.cs" />
+    <Compile Include="Assets\Scripts\BulletExplosion.cs" />
+    <Compile Include="Assets\Scripts\BulletsCounter.cs" />
+    <Compile Include="Assets\Scripts\EnmyRocket.cs" />
+    <Compile Include="Assets\Scripts\IDestroyable.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/_repos/MissileCommand/Missile Command/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
