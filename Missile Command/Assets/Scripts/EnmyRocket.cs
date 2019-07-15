@@ -2,23 +2,48 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnmyRocket : MonoBehaviour, IDestroyable
+public class EnmyRocket : MonoBehaviour
 {
-	//private bool exist = true;
-	public void Destroy(int damage)
-	{
-		Destroy(gameObject);
-	}
+	public int rocketCounter;
+	public int rocketPoints;
 
-	// Start is called before the first frame update
 	void Start()
     {
         
     }
-
-    // Update is called once per frame
+	
     void Update()
     {
-        
-    }
+
+	}
+
+	void OnTriggerEnter(Collider other)
+	{
+		//if (other.name == "ExplosionEffect")
+		//{
+			Debug.Log("Bang!");
+			Destroy(gameObject);
+		//DestroyedByPlayer();
+		//}
+
+	}
+
+	/*void DestroyedByPlayer()
+	{
+		rocketCounter++; //jeszcze nie działa
+						 //Destroy(gameObject);
+		Debug.Log($"You shot down {rocketCounter} rockets");
+		Destroy(gameObject);
+
+	}
+
+	void ExplodedToTheGround(bool damage)
+	{
+		Destroy(gameObject);
+	}*/
+
+	/*int OnDestroy(PointsCounter.)
+	{
+		return rocketCounter = rocketCounter + rocketPoints;
+	}*/
 }

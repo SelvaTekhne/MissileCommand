@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2535802723302375534}
   - component: {fileID: 2535802723302375533}
   - component: {fileID: 2535802723302375532}
-  - component: {fileID: 4905461628490814776}
+  - component: {fileID: 974099470705526273}
   m_Layer: 0
   m_Name: PlayerBullet
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2535802723302375531}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.912}
-  m_LocalScale: {x: 0.29531, y: 0.29531, z: 0.29531}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -88,11 +88,11 @@ SphereCollider:
   m_GameObject: {fileID: 2535802723302375531}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4905461628490814776
+--- !u!114 &974099470705526273
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -104,3 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 385421bb7ea654d4fb65a773e09ef0b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPosition: {x: 0, y: 0, z: 0}
+  speed: 10
+  explosionEffect: {fileID: 7203802440957473395, guid: 16835c4a2536639489d9cda7edce38fd,
+    type: 3}

@@ -4,15 +4,28 @@ using UnityEngine;
 
 public class BulletExplosion : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+	public SphereCollider colliderExplosion;
+	
+	// Dobrze by było podłączyć tu jeszcze sterowanie animacją particli, ale to może później.
+	[SerializeField] private float speedOfSpreading = 1;
+	[SerializeField] private float startRange = 1;
+	[SerializeField] private float maxRange = 1;
+	
+	void Start()
     {
-        
-    }
-
-    // Update is called once per frame
+		//Debug.Log("Boom!");
+		//colliderExplosion = gameObject.AddComponent<SphereCollider>();
+		colliderExplosion.isTrigger = true;
+		colliderExplosion.radius = startRange;
+	}
+	
     void Update()
     {
-        
+		if (colliderExplosion.radius <= maxRange)
+		{
+			float step = speedOfSpreading * Time.deltaTime;
+			colliderExplosion.radius += step;
+		}
     }
+
 }
