@@ -1,13 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class EnmyRocket : MonoBehaviour
+public class EnemyRocket : MonoBehaviour, IDestroyable
 {
-	public int rocketCounter;
-	public int rocketPoints;
+    public static event Action Destroyed;
 
-	void Start()
+    public void Destroy()
+    {
+        Debug.Log("Bang!");
+        Destroyed?.Invoke();
+
+        Destroy(gameObject);
+    }
+
+
+    /*void Start()
     {
         
     }
@@ -15,9 +24,9 @@ public class EnmyRocket : MonoBehaviour
     void Update()
     {
 
-	}
+	}*/
 
-	void OnTriggerEnter(Collider other)
+    /*void OnTriggerEnter(Collider other)
 	{
 		//if (other.name == "ExplosionEffect")
 		//{
@@ -26,9 +35,11 @@ public class EnmyRocket : MonoBehaviour
 		//DestroyedByPlayer();
 		//}
 
-	}
+	}*/
 
-	/*void DestroyedByPlayer()
+
+
+    /*void DestroyedByPlayer()
 	{
 		rocketCounter++; //jeszcze nie działa
 						 //Destroy(gameObject);
@@ -42,7 +53,7 @@ public class EnmyRocket : MonoBehaviour
 		Destroy(gameObject);
 	}*/
 
-	/*int OnDestroy(PointsCounter.)
+    /*int OnDestroy(PointsCounter.)
 	{
 		return rocketCounter = rocketCounter + rocketPoints;
 	}*/

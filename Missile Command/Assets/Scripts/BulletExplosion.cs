@@ -11,7 +11,7 @@ public class BulletExplosion : MonoBehaviour
 	[SerializeField] private float startRange = 1;
 	[SerializeField] private float maxRange = 1;
 	
-	void Start()
+	void Awake()
     {
 		//Debug.Log("Boom!");
 		//colliderExplosion = gameObject.AddComponent<SphereCollider>();
@@ -26,6 +26,15 @@ public class BulletExplosion : MonoBehaviour
 			float step = speedOfSpreading * Time.deltaTime;
 			colliderExplosion.radius += step;
 		}
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        IDestroyable destroyable = other.GetComponent<IDestroyable>();
+        if(destroyable != null)
+        {
+            destroyable.Destroy();
+        }
     }
 
 }

@@ -1,4 +1,4 @@
 ﻿public interface IDestroyable
 {
-	void Destroy(int damage);  
+	void Destroy();  
 }
