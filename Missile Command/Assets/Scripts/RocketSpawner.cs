@@ -5,15 +5,34 @@ using UnityEngine;
 
 public class RocketSpawner : MonoBehaviour
 {
-	public GameObject enmyRocket;
-	public int numberOfRocket = 10;
+	public GameObject enemyRocket;
+	public int totalNumberOfRocketToSpawn = 10;
+	private int _numberOfRockets = 0;
+
+	public static event Action AllRocketsDestroyed;
 	
 	void Start()
 	{
-		for (int i = 0; i <= numberOfRocket; i++)
+		EnemyRocket.Destroyed += OnRocketDestroyed;
+		for (int i = 0; i < totalNumberOfRocketToSpawn; i++)
 		{
 			Vector3 dropPosition = new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0);
-			Instantiate(enmyRocket, dropPosition, Quaternion.identity);
+			Instantiate(enemyRocket, dropPosition, Quaternion.identity);
+			_numberOfRockets++;
 		}
+	}
+
+	private void OnRocketDestroyed()
+	{
+		_numberOfRockets--;
+		if(_numberOfRockets <= 0)
+		{
+			AllRocketsDestroyed?.Invoke();
+		}
+	}
+
+	private void OnDestroy()
+	{
+		EnemyRocket.Destroyed -= OnRocketDestroyed;
 	}
 }

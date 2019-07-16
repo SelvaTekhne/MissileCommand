@@ -5,17 +5,50 @@ using UnityEngine.UI;
 
 public class PointsCounter : MonoBehaviour
 {
-	public EnmyRocket enmyRocket;
-	private Text counter;
+	private static PointsCounter _instance;
+	public static PointsCounter Instance;
+	[SerializeField] private Text _counter;
+	private Text Counter
+	{
+		get
+		{
+			if(_counter == null)
+			{
+				_counter = gameObject.GetComponent<Text>();
+			}
+			return _counter;
+		}
+	}
+	private int _points = 0;
 
-	void Start()
-    {
-		counter = gameObject.GetComponent<Text>();
-		counter.text = enmyRocket.rocketCounter.ToString();
+	[SerializeField] private int _destroyedRocketMultiplier;
+	[SerializeField] private int _remainedBulletMultiplier;
+	[SerializeField] private int _saveCityMultiplier;
+
+	private void Awake()
+	{
+		if (_instance != null && _instance != this)
+		{
+			Destroy(this);
+		}
+		else
+		{
+			_instance = this;
+			DontDestroyOnLoad(this);
+			EnemyRocket.Destroyed += EnemyRocketDestroyed;
+		}
 	}
 
-    void Update()
-    {
-		counter.text = enmyRocket.rocketCounter.ToString();
+	public void EnemyRocketDestroyed()
+	{
+		_points += _destroyedRocketMultiplier;
+
+		Counter.text = _points.ToString();
 	}
+
+	private void OnDestroy()
+	{
+		EnemyRocket.Destroyed -= EnemyRocketDestroyed;
+	}
+
 }
