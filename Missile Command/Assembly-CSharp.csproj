@@ -65,7 +65,9 @@
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\BulletExplosion.cs" />
     <Compile Include="Assets\Scripts\BulletsCounter.cs" />
-    <Compile Include="Assets\Scripts\EnmyRocket.cs" />
+    <Compile Include="Assets\Scripts\CitiesController.cs" />
+    <Compile Include="Assets\Scripts\City.cs" />
+    <Compile Include="Assets\Scripts\EnemyRocket.cs" />
     <Compile Include="Assets\Scripts\IDestroyable.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\PointsCounter.cs" />

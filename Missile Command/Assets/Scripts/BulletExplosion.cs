@@ -6,7 +6,7 @@ public class BulletExplosion : MonoBehaviour
 {
 	public SphereCollider colliderExplosion;
 	
-	// Dobrze by było podłączyć tu jeszcze sterowanie animacją particli, ale to może później.
+	//Dobrze by było podłączyć tu jeszcze sterowanie animacją particli, ale to może później.
 	[SerializeField] private float speedOfSpreading = 1;
 	[SerializeField] private float startRange = 1;
 	[SerializeField] private float maxRange = 1;
