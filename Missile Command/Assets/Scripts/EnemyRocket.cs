@@ -5,24 +5,28 @@ using System;
 
 public class EnemyRocket : MonoBehaviour, IDestroyable
 {
-	public static event Action Destroyed;
+    public static event Action Destroyed;
 
     public void Destroy()
-	{
-		Debug.Log("Bang!");
-		Destroyed?.Invoke();
-		Destroy(gameObject);
+    {
+        Debug.Log("Bang!");
+        Destroyed?.Invoke();
+        Destroy(gameObject);
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if(Collider.)
+        //Debug.Log("Łup-");
+        if (collision.gameObject.tag == "City")
         {
-            IDestroyable destroyable = city.GetComponent<IDestroyable>();
+           // Debug.Log("-du-");
+            IDestroyable destroyable = collision.gameObject.GetComponent<IDestroyable>();
             if (destroyable != null)
             {
                 destroyable.Destroy();
             }
         }
+        Destroy(gameObject);
     }
 }
+    

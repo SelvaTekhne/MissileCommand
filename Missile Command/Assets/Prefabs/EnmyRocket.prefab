@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 3455366849008595628}
   - component: {fileID: -7168403922677609515}
   - component: {fileID: 8417581633828927438}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnmyRocket
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 3455366849270736393}
   - component: {fileID: 3455366849270736390}
   - component: {fileID: 3455366849270736391}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Capsule
   m_TagString: Untagged
   m_Icon: {fileID: 0}

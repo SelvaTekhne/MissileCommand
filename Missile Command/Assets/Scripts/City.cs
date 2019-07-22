@@ -9,7 +9,7 @@ public class City : MonoBehaviour, IDestroyable
 
     public void Destroy()
     {
-        Debug.Log("Miasto zniszczone!");
+        Debug.Log("-bum!");
         Destroyed?.Invoke();
         Destroy(gameObject);
     }
