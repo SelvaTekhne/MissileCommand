@@ -23,7 +23,7 @@ public class PointsCounter : MonoBehaviour
 
 	[SerializeField] private int _destroyedRocketMultiplier;
 	[SerializeField] private int _remainedBulletMultiplier;
-	[SerializeField] private int _saveCityMultiplier;
+	[SerializeField] private int _savedCityMultiplier;
 
 	private void Awake()
 	{
@@ -36,6 +36,7 @@ public class PointsCounter : MonoBehaviour
 			_instance = this;
 			DontDestroyOnLoad(this);
 			EnemyRocket.Destroyed += EnemyRocketDestroyed;
+            RocketSpawner.AllRocketsDestroyed += CitySaved;
 		}
 	}
 
@@ -46,9 +47,20 @@ public class PointsCounter : MonoBehaviour
 		Counter.text = _points.ToString();
 	}
 
-	private void OnDestroy()
+
+    
+    public void CitySaved()
+    {
+        Debug.Log("Counting saved cities...");
+
+        //_points += _savedCityMultiplier;
+
+        //Counter.text = _points.ToString();
+    }
+
+    private void OnDestroy()
 	{
 		EnemyRocket.Destroyed -= EnemyRocketDestroyed;
-	}
+    }
 
 }

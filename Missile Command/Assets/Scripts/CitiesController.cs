@@ -5,22 +5,36 @@ using UnityEngine;
 public class CitiesController : MonoBehaviour
 {
     public GameObject city;
-    private int _totalNumberOfCities = 6;
-    Vector3 position;
-
+    public List<Transform> citiesSpawnPositions;
+    int totalNumberOfCities = 0;
+    int actualNumberOfCities;
 
     private void Awake()
     {
-        //Instantiate(city,)
-    }
-    void Start()
-    {
-        
+        foreach (Transform cityTransform in citiesSpawnPositions)
+        {
+            Vector3 cityPosition = cityTransform.position;
+            Instantiate(city, cityPosition, Quaternion.identity);
+            totalNumberOfCities++;
+        }
+        actualNumberOfCities = totalNumberOfCities;
+        Debug.Log("Number of cities: " + totalNumberOfCities);
+
+        City.Destroyed += DestroyTheCity;
+
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (actualNumberOfCities <= 0)
+        {
+            Debug.Log("Game Over!");
+        }
+    }
+
+    public void DestroyTheCity()
+    {
+        actualNumberOfCities--;
+        Debug.Log("Actual number of cities: " + actualNumberOfCities);
     }
 }

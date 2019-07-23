@@ -25,9 +25,11 @@ public class RocketSpawner : MonoBehaviour
 	private void OnRocketDestroyed()
 	{
 		_numberOfRockets--;
-		if(_numberOfRockets <= 0)
-		{
-			AllRocketsDestroyed?.Invoke();
+        Debug.Log("Number of rockets: " + _numberOfRockets);
+        if (_numberOfRockets <= 0)
+        {
+            Debug.Log("All rocket destroyed!");
+            AllRocketsDestroyed?.Invoke();
 		}
 	}
 
