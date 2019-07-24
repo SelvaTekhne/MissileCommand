@@ -900,6 +900,9 @@ MonoBehaviour:
   enemyRocket: {fileID: 3455366849008595626, guid: b3511a13eb4085349957f421781ce177,
     type: 3}
   totalNumberOfRocketToSpawn: 30
+  minWaitingTimeForNextWave: 1
+  maxWaitingTimeForNextWave: 3
+  waitingTimeForEndOfLvl: 15
 --- !u!1 &1262305618
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,6 +1531,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2535802723302375531, guid: 924c9d8d2009e5d49acfb5c588fd732d,
         type: 3}
+    - target: {fileID: 3143473757571055490, guid: 8d0cdd82c9aece646885681c5eeb7a03,
+        type: 3}
+      propertyPath: totalNumberOfBullets
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3143473757571055491, guid: 8d0cdd82c9aece646885681c5eeb7a03,
         type: 3}
       propertyPath: m_LocalPosition.x

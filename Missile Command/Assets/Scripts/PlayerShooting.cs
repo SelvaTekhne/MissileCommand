@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,8 +7,12 @@ public class PlayerShooting : MonoBehaviour
 {
 	private Vector2 clickPosition;
 	private Camera mainCamera;
-	//[SerializeField]
-	public int numberOfBullets = 10;
+    //public int numberOfBulletsInLoad = 10; //tu czekają rozgrzebane do zrobienia 3x10 poscisków
+    // public int numberOfLoads = 3;
+
+    public int totalNumberOfBullets;
+    private int actualNumberOfBullets;
+    public static event Action Reload;
 	public Vector3 targetPosition;
 
 	public GameObject playerBullet;
@@ -17,6 +22,7 @@ public class PlayerShooting : MonoBehaviour
 	private void Awake()
 	{
 		mainCamera = Camera.main;
+        //totalNumberOfBullets = numberOfBulletsInLoad * numberOfLoads;
 	}
 
 	void Update()
@@ -30,22 +36,27 @@ public class PlayerShooting : MonoBehaviour
 				targetPosition = mainCamera.ScreenToWorldPoint(targetPosition);
 				//Debug.Log(targetPosition);
 
-			if (targetPosition.y > shootingStartPoint.transform.position.y)
-			{
-				if (numberOfBullets > 0)
-				{
-					Bullet bullet = Instantiate(playerBullet, shootingStartPoint.transform.position, Quaternion.LookRotation(targetPosition)).GetComponent<Bullet>();
-					numberOfBullets--;
-					bullet.targetPosition = targetPosition;
-					//Debug.Log(numberOfBullets);
-				}
-				else { Debug.Log("You're out of ammo!"); }
+			    if (targetPosition.y > shootingStartPoint.transform.position.y)
+			    {
+				    if (totalNumberOfBullets > 0)
+				    {
+					    Bullet bullet = Instantiate(playerBullet, shootingStartPoint.transform.position, Quaternion.LookRotation(targetPosition)).GetComponent<Bullet>();
+					    totalNumberOfBullets--;
+					    bullet.targetPosition = targetPosition;
+					    //Debug.Log(numberOfBullets);
+				    }
+				    else { Debug.Log("You're out of ammo!"); }
 
-			}
-			else { Debug.Log("It's too low for shoot!"); }
+			    }
+			    else { Debug.Log("It's too low for shoot!"); }
 			}
 
 	}
+
+    void Reloading()
+    {
+
+    }
 }
 
 

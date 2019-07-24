@@ -11,11 +11,11 @@ public class BulletsCounter : MonoBehaviour
     void Start()
     {
 		counter = gameObject.GetComponent<Text>();
-		counter.text = playerShooting.numberOfBullets.ToString();
+		counter.text = playerShooting.totalNumberOfBullets.ToString();
     }
 	
     void Update()
 	{
-		counter.text = playerShooting.numberOfBullets.ToString();
+		counter.text = playerShooting.totalNumberOfBullets.ToString();
 	}
 }
