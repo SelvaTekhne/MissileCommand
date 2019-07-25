@@ -1,13 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CitiesController : MonoBehaviour
 {
     public GameObject city;
     public List<Transform> citiesSpawnPositions;
     int totalNumberOfCities = 0;
-    int actualNumberOfCities;
+    public int actualNumberOfCities;
+    public static event Action AllCitiesDestroyed;
+
 
     private void Awake()
     {
@@ -28,6 +31,7 @@ public class CitiesController : MonoBehaviour
     {
         if (actualNumberOfCities <= 0)
         {
+            AllCitiesDestroyed?.Invoke();
             Debug.Log("Game Over!");
         }
     }

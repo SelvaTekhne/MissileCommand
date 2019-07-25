@@ -72,7 +72,8 @@
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\PointsCounter.cs" />
     <Compile Include="Assets\Scripts\RocketSpawner.cs" />
-    <Compile Include="Assets\Scripts\RocketSpawner1.cs" />
+    <Compile Include="Assets\Scripts\RocketSpawner2.cs" />
+    <Compile Include="Assets\Scripts\RocketSpawner5.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/_repos/MissileCommand/Missile Command/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

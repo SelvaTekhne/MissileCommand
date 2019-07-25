@@ -305,3 +305,5 @@ Assets\Scripts\IDestroyable.cs
 Assets\Scripts\PlayerShooting.cs
 Assets\Scripts\PointsCounter.cs
 Assets\Scripts\RocketSpawner.cs
+Assets\Scripts\RocketSpawner1.cs
+Assets\Scripts\RocketSpawner2.cs

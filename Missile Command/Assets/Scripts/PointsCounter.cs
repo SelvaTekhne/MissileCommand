@@ -8,6 +8,9 @@ public class PointsCounter : MonoBehaviour
 	private static PointsCounter _instance;
 	public static PointsCounter Instance;
 	[SerializeField] private Text _counter;
+    [SerializeField] private GameObject cities;
+    private int _savedCities;
+
 	private Text Counter
 	{
 		get
@@ -36,7 +39,7 @@ public class PointsCounter : MonoBehaviour
 			_instance = this;
 			DontDestroyOnLoad(this);
 			EnemyRocket.Destroyed += EnemyRocketDestroyed;
-            RocketSpawner.AllRocketsDestroyed += CitySaved;
+            RocketSpawner.AllRocketsSpawned += CitySaved;
 		}
 	}
 
@@ -53,9 +56,12 @@ public class PointsCounter : MonoBehaviour
     {
         Debug.Log("Counting saved cities...");
 
-        //_points += _savedCityMultiplier;
+        _savedCities = cities.GetComponent<CitiesController>().actualNumberOfCities;
 
-        //Counter.text = _points.ToString();
+        Debug.Log(_savedCities * _savedCityMultiplier);
+        _points += (_savedCities * _savedCityMultiplier);
+
+        Counter.text = _points.ToString();
     }
 
     private void OnDestroy()

@@ -1,4 +1,4 @@
-﻿using System;
+﻿/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,37 +12,65 @@ public class RocketSpawner : MonoBehaviour
     [SerializeField] private float minWaitingTimeForNextWave = 1;
     [SerializeField] private float maxWaitingTimeForNextWave = 3;
     [SerializeField] private float waitingTimeForEndOfLvl = 15;
-    private bool canSpawn = true;
-    private bool duringLvl = true;
-    private bool isWatingForLvlEnd = false;
 
-   // public static event Action AllRocketsDestroyed;
-    public static event Action AllRocketsSpawned;
+    public enum SpawnState { SPAWNING, WAITING, COUNTING };
+    
+    [System.Serializable]
+    public class Wave
+    {
+        public Transform enemy;
+        public int count;
+        public float rate;
+    }
+
+    public Wave[] waves;
+    private int nextWave = 0;
+
+    public float timeBetweenWaves = 5f;
+    public float waveCountDown;
+
+    public SpawnState state = SpawnState.COUNTING;
+
+
+    //public static event Action AllRocketsDestroyed;
+    //public static event Action AllRocketsSpawned;
 
     void Start()
 	{
-		EnemyRocket.Destroyed += OnRocketDestroyed;
+        //EnemyRocket.Destroyed += OnRocketDestroyed;       
+        waveCountDown = timeBetweenWaves;
     }
 
     private void Update()
     {
-        if (duringLvl)
+        //RocketRain();
+        if (waveCountDown <= 0)
         {
-            if(canSpawn)
+            if (state != SpawnState.SPAWNING)
             {
-                RocketRain();
+                // Start spawning wave
             }
+            else
+            {
+                waveCountDown -= Time.deltaTime;
+            }
+
         }
     }
 
-    private void OnRocketDestroyed()
+    IEnumerator SpawnWave(Wave _wave)
+    {
+        yield break;
+    }
+
+    /*private void OnRocketDestroyed()
 	{
 		_numberOfRockets--;
-        //Debug.Log("Number of rockets: " + _numberOfRockets);
+        Debug.Log("Number of rockets: " + _numberOfRockets);
         if (_numberOfRockets <= 0)
         {
             Debug.Log("All rocket destroyed!");
-            //AllRocketsDestroyed?.Invoke();
+            AllRocketsDestroyed?.Invoke();
 		}
 	}
 
@@ -55,9 +83,9 @@ public class RocketSpawner : MonoBehaviour
     {       
         if (totalNumberOfRocketToSpawn >= 3)
         {
-            int rocketsInWave = UnityEngine.Random.Range(1, 4);
+            int rocketsInWave = UnityEngine.Random.Range(1, 3);
             Debug.Log("Rockets in wave: " + rocketsInWave);
-            Wave(rocketsInWave);
+            RelaseWave(rocketsInWave);
             totalNumberOfRocketToSpawn -= rocketsInWave;
             Debug.Log("Left rocekts to spawn: " + totalNumberOfRocketToSpawn);
 
@@ -66,9 +94,9 @@ public class RocketSpawner : MonoBehaviour
         } else
         if (totalNumberOfRocketToSpawn == 2)
         {
-            int rocketsInWave = UnityEngine.Random.Range(1, 3);
+            int rocketsInWave = UnityEngine.Random.Range(1, 2);
             Debug.Log("Rockets in wave: " + rocketsInWave);
-            Wave(rocketsInWave);
+            RelaseWave(rocketsInWave);
             totalNumberOfRocketToSpawn -= rocketsInWave;
             Debug.Log("Left rocekts to spawn: " + totalNumberOfRocketToSpawn);
 
@@ -77,48 +105,33 @@ public class RocketSpawner : MonoBehaviour
         } else
         if (totalNumberOfRocketToSpawn == 1)
         {
-            Wave(totalNumberOfRocketToSpawn);
-            Debug.Log("Rockets in wave: " + totalNumberOfRocketToSpawn);
-            Wave(totalNumberOfRocketToSpawn);
-            totalNumberOfRocketToSpawn--;
-            Debug.Log("Left rocekts to spawn: " + totalNumberOfRocketToSpawn);
-
-            StartCoroutine(CountingDownToNextWave());
-
-        } else
-        if (totalNumberOfRocketToSpawn == 0)
-        {
+            RelaseWave(totalNumberOfRocketToSpawn);
             Debug.Log("It's all rockets.");
             
             StartCoroutine(CountingDownToEndOfLvl());
 
-            duringLvl = false;
+            AllRocketsSpawned?.Invoke();
         }
     }
 
-    private void Wave(int numberRocketInWave)
+    private void RelaseWave(int numberRocketInWave)
     {
-        Vector3 dropPosition;
         for (int i = 0; i < numberRocketInWave; i++)
         {
-            dropPosition = new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0);
-
+            Vector3 dropPosition = new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0);
+            Instantiate(enemyRocket, dropPosition, Quaternion.identity);
+            _numberOfRockets++;
         }
     }
 
     IEnumerator CountingDownToNextWave()
     {
-        canSpawn = false;
         yield return new WaitForSecondsRealtime(UnityEngine.Random.Range(minWaitingTimeForNextWave, maxWaitingTimeForNextWave));
-        canSpawn = true;
     }
 
     IEnumerator CountingDownToEndOfLvl()
     {
-        isWatingForLvlEnd = true;
         yield return new WaitForSecondsRealtime(waitingTimeForEndOfLvl);
-        Debug.Log("End of lvl!");
-        AllRocketsSpawned?.Invoke();
-        isWatingForLvlEnd = false;
     }
 }
+*/

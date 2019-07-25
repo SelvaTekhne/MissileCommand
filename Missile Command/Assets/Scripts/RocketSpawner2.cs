@@ -13,6 +13,19 @@ public class RocketSpawner : MonoBehaviour
     [SerializeField] private float maxWaitingTimeForNextWave = 3;
     [SerializeField] private float waitingTimeForEndOfLvl = 15;
 
+    [System.Serializable]
+    public class Wave
+    {
+        public Transform enemy;
+        public int count;
+        public float rate;
+    }
+
+    public Wave[] waves;
+    private int nextWave = 0;
+
+    public float timeBetweenWaves = 5f;
+    public float waveCountDown;
 
     public static event Action AllRocketsDestroyed;
     public static event Action AllRocketsSpawned;
@@ -49,7 +62,7 @@ public class RocketSpawner : MonoBehaviour
         {
             int rocketsInWave = UnityEngine.Random.Range(1, 3);
             Debug.Log("Rockets in wave: " + rocketsInWave);
-            Wave(rocketsInWave);
+            RelaseWave(rocketsInWave);
             totalNumberOfRocketToSpawn -= rocketsInWave;
             Debug.Log("Left rocekts to spawn: " + totalNumberOfRocketToSpawn);
 
@@ -60,7 +73,7 @@ public class RocketSpawner : MonoBehaviour
         {
             int rocketsInWave = UnityEngine.Random.Range(1, 2);
             Debug.Log("Rockets in wave: " + rocketsInWave);
-            Wave(rocketsInWave);
+            RelaseWave(rocketsInWave);
             totalNumberOfRocketToSpawn -= rocketsInWave;
             Debug.Log("Left rocekts to spawn: " + totalNumberOfRocketToSpawn);
 
@@ -69,7 +82,7 @@ public class RocketSpawner : MonoBehaviour
         } else
         if (totalNumberOfRocketToSpawn == 1)
         {
-            Wave(totalNumberOfRocketToSpawn);
+            RelaseWave(totalNumberOfRocketToSpawn);
             Debug.Log("It's all rockets.");
             
             StartCoroutine(CountingDownToEndOfLvl());
@@ -78,7 +91,7 @@ public class RocketSpawner : MonoBehaviour
         }
     }
 
-    private void Wave(int numberRocketInWave)
+    private void RelaseWave(int numberRocketInWave)
     {
         for (int i = 0; i < numberRocketInWave; i++)
         {
