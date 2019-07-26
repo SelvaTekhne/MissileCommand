@@ -98,12 +98,37 @@ public class RocketSpawner : MonoBehaviour
 
     private void Wave(int numberRocketInWave)
     {
-        Vector3 dropPosition;
+        var positionsList = new List<Vector3>();
+        float minPosition;
+        float maxPosition;
+        float minAngle;
+        float maxAngle;
+        float finalAngle;
+
         for (int i = 0; i < numberRocketInWave; i++)
         {
-            dropPosition = new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0);
+            float x = UnityEngine.Random.Range(-6f, 6f);
 
+            if (i > 0)
+            {
+                while (Mathf.Abs(x - positionsList[i - 1].x) < 1.3)
+                {
+                    x = UnityEngine.Random.Range(-6f, 6f);
+                }
+            }
+            positionsList.Add(new Vector3(x, 4, 0));
+            Debug.Log(positionsList[i].x);
         }
+        //minPosition = positionsList[0].x.Min();
+        //int index = positionsList.x.IndexOf(minVal);
+
+
+        foreach (Vector3 position in positionsList)
+        {
+            Vector3 dropPosition = position;
+            Instantiate(enemyRocket, dropPosition, Quaternion.identity);
+            _numberOfRockets++;
+        }         
     }
 
     IEnumerator CountingDownToNextWave()
