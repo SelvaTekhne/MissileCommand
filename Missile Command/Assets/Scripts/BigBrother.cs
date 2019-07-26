@@ -2,25 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
-public class EnemyRocket : MonoBehaviour, IDestroyable
+public class BigBrother : MonoBehaviour, IDestroyable
 {
     public static event Action Destroyed;
     [SerializeField] private float speed = 1;
-    [SerializeField] private float protectionDuration = 1.5f;
-    public CapsuleCollider rocketCollider;
-
-    public void Awake()
-    {
-        rocketCollider.enabled = false;
-    }
-
-    public void Start()
-    {
-        Waiting();
-    }
-
+    public GameObject enemyRocket;
 
     public void Update()
     {
@@ -31,8 +18,10 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
 
     public void Destroy()
     {
+        Vector3 dropPosition = this.transform.position;
         Debug.Log("Bang!");
         Destroyed?.Invoke();
+        Instantiate(enemyRocket, dropPosition, Quaternion.identity);
         Destroy(gameObject);
     }
 
@@ -41,7 +30,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
         //Debug.Log("Łup-");
         if (collision.gameObject.tag == "City")
         {
-           // Debug.Log("-du-");
+            // Debug.Log("-du-");
             IDestroyable destroyable = collision.gameObject.GetComponent<IDestroyable>();
             if (destroyable != null)
             {
@@ -50,16 +39,4 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
         }
         Destroy(gameObject);
     }
-
-    private void Waiting()
-    {
-        StartCoroutine(ProtectionTime());
-    }
-
-    IEnumerator ProtectionTime()
-    {
-        yield return new WaitForSecondsRealtime(protectionDuration);
-        rocketCollider.enabled = true;
-    }
 }
-    

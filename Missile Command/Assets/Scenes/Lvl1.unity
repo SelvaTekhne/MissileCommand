@@ -900,10 +900,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyRocket: {fileID: 3455366849008595626, guid: b3511a13eb4085349957f421781ce177,
     type: 3}
-  totalNumberOfRocketToSpawn: 12
+  bigBrother: {fileID: 7922751584938264811, guid: e7bce6047e60e7140bb39e84cb0119d7,
+    type: 3}
+  totalNumberOfRocketToSpawn: 10
   minWaitingTimeForNextWave: 0.5
   maxWaitingTimeForNextWave: 2
   waitingTimeForEndOfLvl: 13
+  chanceForBigBrother: 0.1
 --- !u!1 &1262305618
 GameObject:
   m_ObjectHideFlags: 0

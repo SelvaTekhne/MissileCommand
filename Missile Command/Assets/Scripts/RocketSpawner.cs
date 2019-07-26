@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class RocketSpawner : MonoBehaviour
 {
 	public GameObject enemyRocket;
-	public int totalNumberOfRocketToSpawn = 10;
+    public GameObject bigBrother;
+    public int totalNumberOfRocketToSpawn = 10;
 	private int _numberOfRockets = 0;
     //private int _numerOfWaves;
     [SerializeField] private float minWaitingTimeForNextWave = 1;
     [SerializeField] private float maxWaitingTimeForNextWave = 3;
     [SerializeField] private float waitingTimeForEndOfLvl = 15;
+    [SerializeField] private float chanceForBigBrother = 0.1f;
     private bool canSpawn = true;
     private bool duringLvl = true;
     private bool isWatingForLvlEnd = false;
@@ -22,6 +25,7 @@ public class RocketSpawner : MonoBehaviour
     void Start()
 	{
 		EnemyRocket.Destroyed += OnRocketDestroyed;
+        Instantiate(bigBrother, new Vector3(2, 4, 0), Quaternion.identity);
     }
 
     private void Update()
@@ -117,16 +121,23 @@ public class RocketSpawner : MonoBehaviour
                 }
             }
             positionsList.Add(new Vector3(x, 4, 0));
-            Debug.Log(positionsList[i].x);
+            Debug.Log("Now postition: " + positionsList[i].x);
         }
-        //minPosition = positionsList[0].x.Min();
-        //int index = positionsList.x.IndexOf(minVal);
+        maxPosition = positionsList.Max(vector3 => vector3.x);
+        minPosition = positionsList.Min(vector3 => vector3.x);
+        Debug.Log("Mini: " + minPosition + ", max: " + maxPosition + " positions.");
 
+        minAngle = Mathf.Atan2(-6f - minPosition, -8.8f);
+        maxAngle = Mathf.Atan2(6f - maxPosition, -8.8f);
+        Debug.Log("Mini: " + minAngle + ", max: " + maxAngle + " angles.");
+
+        finalAngle = UnityEngine.Random.Range(minAngle, maxAngle);
+        Debug.Log("Final angle: " + finalAngle);
 
         foreach (Vector3 position in positionsList)
         {
             Vector3 dropPosition = position;
-            Instantiate(enemyRocket, dropPosition, Quaternion.identity);
+            Instantiate(enemyRocket, dropPosition, new Quaternion(0, 0, 0, finalAngle));
             _numberOfRockets++;
         }         
     }
