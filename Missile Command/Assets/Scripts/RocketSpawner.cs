@@ -127,17 +127,19 @@ public class RocketSpawner : MonoBehaviour
         minPosition = positionsList.Min(vector3 => vector3.x);
         Debug.Log("Mini: " + minPosition + ", max: " + maxPosition + " positions.");
 
-        minAngle = Mathf.Atan2(-6f - minPosition, -8.8f);
-        maxAngle = Mathf.Atan2(6f - maxPosition, -8.8f);
+        minAngle = Mathf.Atan2(-6f - minPosition, -8.8f) * 2 * Mathf.PI;
+        maxAngle = Mathf.Atan2(6f - maxPosition, -8.8f) * 2 * Mathf.PI;
         Debug.Log("Mini: " + minAngle + ", max: " + maxAngle + " angles.");
 
         finalAngle = UnityEngine.Random.Range(minAngle, maxAngle);
         Debug.Log("Final angle: " + finalAngle);
 
+        Quaternion spawnRotation = this.transform.rotation * Quaternion.Euler(0, finalAngle, 0);
+
         foreach (Vector3 position in positionsList)
         {
             Vector3 dropPosition = position;
-            Instantiate(enemyRocket, dropPosition, this.transform.rotation);
+            Instantiate(enemyRocket, dropPosition, spawnRotation);
             _numberOfRockets++;
         }         
     }
