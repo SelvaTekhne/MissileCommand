@@ -25,7 +25,7 @@ public class RocketSpawner : MonoBehaviour
     void Start()
 	{
 		EnemyRocket.Destroyed += OnRocketDestroyed;
-        Instantiate(bigBrother, new Vector3(2, 4, 0), this.transform.rotation);
+        Instantiate(bigBrother, new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0), this.transform.rotation);
     }
 
     private void Update()
