@@ -25,7 +25,7 @@ public class RocketSpawner : MonoBehaviour
     void Start()
 	{
 		EnemyRocket.Destroyed += OnRocketDestroyed;
-        Instantiate(bigBrother, new Vector3(2, 4, 0), Quaternion.identity);
+        Instantiate(bigBrother, new Vector3(2, 4, 0), this.transform.rotation);
     }
 
     private void Update()
@@ -137,7 +137,7 @@ public class RocketSpawner : MonoBehaviour
         foreach (Vector3 position in positionsList)
         {
             Vector3 dropPosition = position;
-            Instantiate(enemyRocket, dropPosition, new Quaternion(0, 0, 0, finalAngle));
+            Instantiate(enemyRocket, dropPosition, this.transform.rotation);
             _numberOfRockets++;
         }         
     }

@@ -25,7 +25,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
     public void Update()
     {
         //float step = speed * Time.deltaTime;
-        this.transform.position += Vector3.down * Time.deltaTime * speed;
+        this.transform.position += transform.forward * Time.deltaTime * speed;
         //this.transform.position = Vector3.MoveTowards(this.transform.position, targetPosition, step);
     }
 

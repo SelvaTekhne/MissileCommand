@@ -12,7 +12,7 @@ public class BigBrother : MonoBehaviour, IDestroyable
     public void Update()
     {
         //float step = speed * Time.deltaTime;
-        this.transform.position += Vector3.down * Time.deltaTime * speed;
+        this.transform.position += this.transform.forward * Time.deltaTime * speed;
         //this.transform.position = Vector3.MoveTowards(this.transform.position, targetPosition, step);
     }
 
@@ -21,7 +21,7 @@ public class BigBrother : MonoBehaviour, IDestroyable
         Vector3 dropPosition = this.transform.position;
         Debug.Log("Bang!");
         Destroyed?.Invoke();
-        Instantiate(enemyRocket, dropPosition, Quaternion.identity);
+        Instantiate(enemyRocket, dropPosition, this.transform.rotation);
         Destroy(gameObject);
     }
 

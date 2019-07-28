@@ -30,7 +30,7 @@ public class BulletExplosion : MonoBehaviour
 
 	private void OnTriggerEnter(Collider other)
 	{
-		IDestroyable destroyable = other.GetComponent<IDestroyable>();
+		IDestroyable destroyable = other.transform.root.GetComponentInChildren<IDestroyable>();
 		if(destroyable != null)
 		{
 			destroyable.Destroy();
