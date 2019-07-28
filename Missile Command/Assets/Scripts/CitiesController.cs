@@ -29,16 +29,17 @@ public class CitiesController : MonoBehaviour
 
     private void Update()
     {
-        if (actualNumberOfCities <= 0)
-        {
-            AllCitiesDestroyed?.Invoke();
-            Debug.Log("Game Over!");
-        }
+        
     }
 
     public void DestroyTheCity()
     {
         actualNumberOfCities--;
         Debug.Log("Actual number of cities: " + actualNumberOfCities);
+        if (actualNumberOfCities <= 0)
+        {
+            AllCitiesDestroyed?.Invoke();
+            Debug.Log("Game Over!");
+        }
     }
 }
