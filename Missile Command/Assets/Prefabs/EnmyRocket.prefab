@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5deef0bf7560b9d47a5369069ef7db8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 0.6
   protectionDuration: 1.3
   rocketCollider: {fileID: 3709093391350471696}
 --- !u!54 &-7168403922677609515

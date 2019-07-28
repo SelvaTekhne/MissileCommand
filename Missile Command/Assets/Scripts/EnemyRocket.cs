@@ -13,6 +13,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
 
     public void Awake()
     {
+        speed = speed + 0.2f * LevelManager.Level;
         rocketCollider.enabled = false;
     }
 
