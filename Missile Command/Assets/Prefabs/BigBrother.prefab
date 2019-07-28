@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0.8
+  noiseInfluence: 10
   enemyRocket: {fileID: 3455366849008595626, guid: b3511a13eb4085349957f421781ce177,
     type: 3}
 --- !u!33 &4808674508797354129
