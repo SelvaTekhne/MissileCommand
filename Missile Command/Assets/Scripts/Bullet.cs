@@ -8,6 +8,7 @@ public class Bullet : MonoBehaviour
 
 	[SerializeField] private float speed = 1;
 	[SerializeField] private GameObject explosionEffect;
+    [SerializeField] private ParticleSystem particleTrail;
  
 	void Update()
     {
@@ -17,9 +18,15 @@ public class Bullet : MonoBehaviour
 		if (Vector3.Distance(this.transform.position, targetPosition) <= Mathf.Epsilon)
 		{
 			Instantiate(explosionEffect, this.transform.position, Quaternion.identity);
-			Destroy(this.gameObject);
-			//Instantiate
-			//Destroy(explosionEffect.gameObject);
-		}
+            particleTrail.transform.parent = null;
+            Destroy(particleTrail.gameObject, 13);
+            Destroy(this.gameObject);
+            //Instantiate
+            //Destroy(explosionEffect.gameObject);
+        }
 	}
+
+    private void OnDestroy()
+    {
+    }
 }

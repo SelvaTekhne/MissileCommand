@@ -17,6 +17,10 @@ public class RocketSpawner : MonoBehaviour
     [SerializeField] private float maxWaitingTimeForNextWave = 3;
     [SerializeField] private float waitingTimeForEndOfLvl = 15;
     [SerializeField] private float chanceForBB = 10f;
+    public GameObject screenOfEndLvl;
+    public GameObject screenGameOver;
+    public GameObject unless;
+    public GameObject protect;
     private bool canSpawn = true;
     private bool duringLvl = false;
     private bool isWatingForLvlEnd = false;
@@ -24,6 +28,7 @@ public class RocketSpawner : MonoBehaviour
 
    // public static event Action AllRocketsDestroyed;
     public static event Action AllRocketsSpawned;
+    public static event Action GameOver;
 
     void Awake()
 	{
@@ -44,6 +49,7 @@ public class RocketSpawner : MonoBehaviour
         duringLvl = true;
         numberOfRocketToSpawn = (int)(baseNumberRocketToSpawn + 3f * lvl);
         chanceForBB = chanceForBB + 2f * lvl;
+        waitingTimeForEndOfLvl = waitingTimeForEndOfLvl - 0.2f * LevelManager.Level;
 
     }
 
@@ -193,15 +199,31 @@ public class RocketSpawner : MonoBehaviour
     {
         isWatingForLvlEnd = true;
         yield return new WaitForSecondsRealtime(waitingTimeForEndOfLvl);
+        screenOfEndLvl.SetActive(true);
         Debug.Log("End of lvl!");
         AllRocketsSpawned?.Invoke();
         isWatingForLvlEnd = false;
         if (!isGameOver)
         {
+            yield return new WaitForSecondsRealtime(5);
+            screenOfEndLvl.SetActive(false);
             LevelManager.Instance.StartNewLevel();
         }
         else
         {
+            unless.SetActive(true);
+            yield return new WaitForSecondsRealtime(3);
+            screenOfEndLvl.SetActive(false);
+            yield return new WaitForSecondsRealtime(2);
+            screenGameOver.SetActive(true);
+            yield return new WaitForSecondsRealtime(1);
+            unless.SetActive(false);
+            yield return new WaitForSecondsRealtime(4);
+            screenGameOver.SetActive(false);
+            yield return new WaitForSecondsRealtime(2);
+
+            GameOver?.Invoke();
+                       
             SceneManager.LoadScene(0);
         }
         

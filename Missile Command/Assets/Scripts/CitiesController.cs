@@ -7,7 +7,7 @@ public class CitiesController : MonoBehaviour
 {
     public GameObject city;
     public List<Transform> citiesSpawnPositions;
-    int totalNumberOfCities = 0;
+    int totalNumberOfCities;
     public int actualNumberOfCities;
     public static event Action AllCitiesDestroyed;
 
@@ -23,7 +23,7 @@ public class CitiesController : MonoBehaviour
         actualNumberOfCities = totalNumberOfCities;
         Debug.Log("Number of cities: " + totalNumberOfCities);
 
-        City.Destroyed += DestroyTheCity;
+        City.Destroyed += DestroyTheCity;      
 
     }
 

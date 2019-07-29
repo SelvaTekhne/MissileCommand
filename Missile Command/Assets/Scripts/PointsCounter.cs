@@ -8,6 +8,7 @@ public class PointsCounter : MonoBehaviour
 	private static PointsCounter _instance;
 	public static PointsCounter Instance;
 	[SerializeField] private Text _counter;
+    [SerializeField] private Text _highScore;
     [SerializeField] private GameObject cities;
     private int _savedCities;
 
@@ -22,11 +23,23 @@ public class PointsCounter : MonoBehaviour
 			return _counter;
 		}
 	}
-	private int _points = 0;
+
+   private Text HighScore
+    {
+        get
+        {
+            if (_highScore == null)
+            {
+                _highScore = gameObject.GetComponent<Text>();
+            }
+            return _highScore;
+        }
+    }
+    private int _points = 0;
 
 	[SerializeField] private int _destroyedRocketMultiplier;
 	[SerializeField] private int _remainedBulletMultiplier;
-	[SerializeField] private int _savedCityMultiplier;
+    [SerializeField] private int _savedCityMultiplier;
 
 	private void Awake()
 	{
@@ -38,8 +51,10 @@ public class PointsCounter : MonoBehaviour
 		{
 			_instance = this;
 			DontDestroyOnLoad(this);
-			EnemyRocket.Destroyed += EnemyRocketDestroyed;
+            HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+            EnemyRocket.Destroyed += EnemyRocketDestroyed;
             RocketSpawner.AllRocketsSpawned += CitySaved;
+            CitiesController.AllCitiesDestroyed += CheckHighScore;
             Counter.text = _points.ToString();
         }
         
@@ -52,7 +67,21 @@ public class PointsCounter : MonoBehaviour
 		Counter.text = _points.ToString();
 	}
 
+    public void CheckHighScore()
+    {
+        Debug.LogError("There's high score update.");
+            HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
+            HighScore.text = 5.ToString();
+            if (_points > PlayerPrefs.GetInt("HighScore", 0))
+            {
+                HighScore.text = 7.ToString();
+                PlayerPrefs.SetInt("HighScore", _points);
+                    HighScore.text = _points.ToString();
+                Debug.LogError("Score update success.");
+            }
 
+        CitiesController.AllCitiesDestroyed -= CheckHighScore;
+    }
     
     public void CitySaved()
     {
