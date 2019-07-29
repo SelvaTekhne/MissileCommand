@@ -16,7 +16,7 @@ public class RocketSpawner : MonoBehaviour
     [SerializeField] private float minWaitingTimeForNextWave = 1;
     [SerializeField] private float maxWaitingTimeForNextWave = 3;
     [SerializeField] private float waitingTimeForEndOfLvl = 15;
-    [SerializeField] private float chanceForBigBrother = 0.1f;
+    [SerializeField] private float chanceForBB = 10f;
     private bool canSpawn = true;
     private bool duringLvl = false;
     private bool isWatingForLvlEnd = false;
@@ -28,7 +28,6 @@ public class RocketSpawner : MonoBehaviour
     void Awake()
 	{
 		EnemyRocket.Destroyed += OnRocketDestroyed;
-        Instantiate(bigBrother, new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0), this.transform.rotation);
         LevelManager.LevelStarted += StartSpawning;
         CitiesController.AllCitiesDestroyed += Apocalypse;
     }
@@ -43,7 +42,8 @@ public class RocketSpawner : MonoBehaviour
     void StartSpawning(int lvl)
     {
         duringLvl = true;
-        numberOfRocketToSpawn = (int)(baseNumberRocketToSpawn + 3f * lvl); 
+        numberOfRocketToSpawn = (int)(baseNumberRocketToSpawn + 3f * lvl);
+        chanceForBB = chanceForBB + 2f * lvl;
 
     }
 
@@ -80,7 +80,26 @@ public class RocketSpawner : MonoBehaviour
         {
             int rocketsInWave = UnityEngine.Random.Range(1, 4);
             Debug.Log("Rockets in wave: " + rocketsInWave);
-            Wave(rocketsInWave);
+
+            if (rocketsInWave >= 3)
+            {
+                float randomBB = UnityEngine.Random.Range(0, 101);
+                Debug.LogError("Chance for BB: " + randomBB);
+
+                if (randomBB <= chanceForBB)
+                {
+                    Instantiate(bigBrother, new Vector3(UnityEngine.Random.Range(-6f, 6f), 4, 0), this.transform.rotation);
+                }
+                else
+                {
+                    Wave(rocketsInWave);
+                }
+            }
+            else
+            {
+                Wave(rocketsInWave);
+            }
+
             numberOfRocketToSpawn -= rocketsInWave;
             Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
 
