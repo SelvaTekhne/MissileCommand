@@ -11,21 +11,40 @@ public class PlayerShooting : MonoBehaviour
     // public int numberOfLoads = 3;
 
     public int totalNumberOfBullets;
-    private int actualNumberOfBullets;
+    public int actualNumberOfBullets;
     public static event Action Reload;
 	public Vector3 targetPosition;
 
 	public GameObject playerBullet;
 	public GameObject shootingStartPoint;
-	
+    private bool isGameOver = false;
 
-	private void Awake()
+
+    private void Awake()
 	{
 		mainCamera = Camera.main;
+        LevelManager.LevelStarted += SetBullets;
+        CitiesController.AllCitiesDestroyed += Apocalypse;
         //totalNumberOfBullets = numberOfBulletsInLoad * numberOfLoads;
 	}
 
-	void Update()
+    private void OnDestroy()
+    {
+        LevelManager.LevelStarted -= SetBullets;
+        CitiesController.AllCitiesDestroyed -= Apocalypse;
+    }
+
+    public void SetBullets(int lvl)
+    {
+        actualNumberOfBullets = totalNumberOfBullets;
+    }
+
+    public void Apocalypse()
+    {
+        isGameOver = true;
+    }
+
+    void Update()
 	{
 			if (Input.GetMouseButtonDown(0))
 			{
@@ -38,10 +57,10 @@ public class PlayerShooting : MonoBehaviour
 
 			    if (targetPosition.y > shootingStartPoint.transform.position.y)
 			    {
-				    if (totalNumberOfBullets > 0)
+				    if (actualNumberOfBullets > 0)
 				    {
 					    Bullet bullet = Instantiate(playerBullet, shootingStartPoint.transform.position, Quaternion.LookRotation(targetPosition)).GetComponent<Bullet>();
-					    totalNumberOfBullets--;
+                        actualNumberOfBullets--;
 					    bullet.targetPosition = targetPosition;
 					    //Debug.Log(numberOfBullets);
 				    }

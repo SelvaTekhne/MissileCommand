@@ -40,7 +40,9 @@ public class PointsCounter : MonoBehaviour
 			DontDestroyOnLoad(this);
 			EnemyRocket.Destroyed += EnemyRocketDestroyed;
             RocketSpawner.AllRocketsSpawned += CitySaved;
-		}
+            Counter.text = _points.ToString();
+        }
+        
 	}
 
 	public void EnemyRocketDestroyed()
