@@ -10,6 +10,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
     [SerializeField] private float speed = 1;
     [SerializeField] private float protectionDuration = 1.5f;
     public CapsuleCollider rocketCollider;
+    public TrailRenderer trailRenderer;
 
     public void Awake()
     {
@@ -34,6 +35,8 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
     {
         Debug.Log("Bang!");
         Destroyed?.Invoke();
+        //trailRenderer.transform.parent = null;
+        //Destroy(trailRenderer.gameObject, 13);
         Destroy(gameObject);
     }
 
@@ -49,6 +52,8 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
                 destroyable.Destroy();
             }
         }
+        //trailRenderer.transform.parent = null;
+        //Destroy(trailRenderer.gameObject, 13);
         Destroy(gameObject);
     }
 
