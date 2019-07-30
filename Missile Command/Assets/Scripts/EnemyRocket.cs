@@ -33,7 +33,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
 
     public void Destroy()
     {
-        Debug.Log("Bang!");
+        //Debug.Log("Bang!");
         Destroyed?.Invoke();
         //trailRenderer.transform.parent = null;
         //Destroy(trailRenderer.gameObject, 13);

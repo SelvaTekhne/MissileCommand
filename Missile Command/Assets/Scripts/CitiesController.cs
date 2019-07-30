@@ -10,10 +10,22 @@ public class CitiesController : MonoBehaviour
     int totalNumberOfCities;
     public int actualNumberOfCities;
     public static event Action AllCitiesDestroyed;
+    //private static CitiesController _instance;
+    //public static CitiesController Instance;
 
 
     private void Awake()
     {
+        /*if (_instance != null && _instance != this)
+        {
+            //Destroy(this);
+        }
+        else
+        {
+            _instance = this;
+            DontDestroyOnLoad(this);
+        }*/
+
         foreach (Transform cityTransform in citiesSpawnPositions)
         {
             Vector3 cityPosition = cityTransform.position;
@@ -23,8 +35,13 @@ public class CitiesController : MonoBehaviour
         actualNumberOfCities = totalNumberOfCities;
         Debug.Log("Number of cities: " + totalNumberOfCities);
 
-        City.Destroyed += DestroyTheCity;      
+        City.Destroyed += DestroyTheCity;
 
+    }
+
+    private void OnDestroy()
+    {
+        City.Destroyed -= DestroyTheCity;
     }
 
     private void Update()

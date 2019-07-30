@@ -42,8 +42,8 @@ public class PointsCounter : MonoBehaviour
     [SerializeField] private int _savedCityMultiplier;
 
 	private void Awake()
-	{
-		if (_instance != null && _instance != this)
+    {
+        if (_instance != null && _instance != this)
 		{
 			Destroy(this);
 		}
@@ -54,7 +54,7 @@ public class PointsCounter : MonoBehaviour
             HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
             EnemyRocket.Destroyed += EnemyRocketDestroyed;
             RocketSpawner.AllRocketsSpawned += CitySaved;
-            CitiesController.AllCitiesDestroyed += CheckHighScore;
+            RocketSpawner.GameOver += CheckHighScore;
             Counter.text = _points.ToString();
         }
         
@@ -65,34 +65,37 @@ public class PointsCounter : MonoBehaviour
 		_points += _destroyedRocketMultiplier;
 
 		Counter.text = _points.ToString();
-	}
+    }
 
     public void CheckHighScore()
     {
-        Debug.LogError("There's high score update.");
+        if (_savedCities <= 0) {
+        //Debug.LogError("There's high score update.");
             HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
-            HighScore.text = 5.ToString();
             if (_points > PlayerPrefs.GetInt("HighScore", 0))
             {
                 HighScore.text = 7.ToString();
                 PlayerPrefs.SetInt("HighScore", _points);
-                    HighScore.text = _points.ToString();
-                Debug.LogError("Score update success.");
+                HighScore.text = _points.ToString();
+                //Debug.LogError("Score update success.");
             }
-
-        CitiesController.AllCitiesDestroyed -= CheckHighScore;
+        }
+        RocketSpawner.GameOver -= CheckHighScore;
     }
     
     public void CitySaved()
     {
         Debug.Log("Counting saved cities...");
 
-        _savedCities = cities.GetComponent<CitiesController>().actualNumberOfCities;
+        if (cities.GetComponent<CitiesController>().actualNumberOfCities != null)
+        { 
+            _savedCities = cities.GetComponent<CitiesController>().actualNumberOfCities;
 
-        Debug.Log(_savedCities * _savedCityMultiplier);
-        _points += (_savedCities * _savedCityMultiplier);
+            Debug.Log(_savedCities * _savedCityMultiplier);
+            _points += (_savedCities * _savedCityMultiplier);
 
-        Counter.text = _points.ToString();
+            Counter.text = _points.ToString();
+        }
     }
 
     private void OnDestroy()
