@@ -9,6 +9,7 @@ public class PointsCounter : MonoBehaviour
 	public static PointsCounter Instance;
 	[SerializeField] private Text _counter;
     [SerializeField] private Text _highScore;
+    [SerializeField] private GameObject DisplayCounter;
     [SerializeField] private GameObject cities;
     private int _savedCities;
 
@@ -43,14 +44,18 @@ public class PointsCounter : MonoBehaviour
 
 	private void Awake()
     {
+        
+        DisplayCounter.SetActive(true);
+
         if (_instance != null && _instance != this)
-		{
-			Destroy(this);
-		}
-		else
-		{
-			_instance = this;
-			DontDestroyOnLoad(this);
+        {
+            Destroy(this);
+        }
+        else
+        {
+
+            _instance = this;
+            DontDestroyOnLoad(this);
             HighScore.text = PlayerPrefs.GetInt("HighScore", 0).ToString();
             EnemyRocket.Destroyed += EnemyRocketDestroyed;
             RocketSpawner.AllRocketsSpawned += CitySaved;
@@ -59,8 +64,9 @@ public class PointsCounter : MonoBehaviour
         }
         
 	}
+    
 
-	public void EnemyRocketDestroyed()
+    public void EnemyRocketDestroyed()
 	{
 		_points += _destroyedRocketMultiplier;
 

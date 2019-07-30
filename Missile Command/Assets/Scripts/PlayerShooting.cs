@@ -25,13 +25,15 @@ public class PlayerShooting : MonoBehaviour
 		mainCamera = Camera.main;
         LevelManager.LevelStarted += SetBullets;
         CitiesController.AllCitiesDestroyed += Apocalypse;
+        BigBrother.BBHitIntoPlayer += BulletsDecreasing;
         //totalNumberOfBullets = numberOfBulletsInLoad * numberOfLoads;
-	}
+    }
 
     private void OnDestroy()
     {
         LevelManager.LevelStarted -= SetBullets;
         CitiesController.AllCitiesDestroyed -= Apocalypse;
+        BigBrother.BBHitIntoPlayer -= BulletsDecreasing;
     }
 
     public void SetBullets(int lvl)
@@ -46,7 +48,9 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
 	{
-			if (Input.GetMouseButtonDown(0))
+        if (!RocketSpawner.nonShooting)
+        {
+            if (Input.GetMouseButtonDown(0))
 			{
 				
 				clickPosition = Input.mousePosition;
@@ -68,9 +72,19 @@ public class PlayerShooting : MonoBehaviour
 
 			    }
 			    else { Debug.Log("It's too low for shoot!"); }
-			}
+            }
+        }
+    }
 
-	}
+    void BulletsDecreasing()
+    {
+        int BBDamage = 10;
+
+        for (int i = 0; i < BBDamage && actualNumberOfBullets > 0; i++)
+        {
+            actualNumberOfBullets--;
+        }
+    }
 
     void Reloading()
     {
