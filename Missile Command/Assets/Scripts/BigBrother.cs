@@ -6,6 +6,7 @@ using System;
 public class BigBrother : MonoBehaviour, IDestroyable
 {
     public static event Action Destroyed;
+    public static event Action BBHitIntoPlayer;
     [SerializeField] private float speed = 1, noiseInfluence = 1;
     public GameObject enemyRocket;
     private Transform target;
@@ -81,7 +82,8 @@ public class BigBrother : MonoBehaviour, IDestroyable
         }
         if(collision.gameObject.tag == "Player")
         {
-            Debug.LogError("Player hitted!");
+            //Debug.LogError("Player hitted!");
+            BBHitIntoPlayer?.Invoke();
             Destroy(gameObject);
         }
         

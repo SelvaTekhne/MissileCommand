@@ -23,6 +23,7 @@ public class RocketSpawner : MonoBehaviour
     public GameObject protect;
     private bool canSpawn = true;
     private bool duringLvl = false;
+    public static bool nonShooting = true;
     private bool isWatingForLvlEnd = false;
     private bool isGameOver = false;
 
@@ -55,11 +56,16 @@ public class RocketSpawner : MonoBehaviour
 
     private void Update()
     {
-        if (duringLvl)
+        if (Menu.isPlay)
         {
-            if(canSpawn)
+            nonShooting = false;
+
+            if (duringLvl)
             {
-                RocketRain();
+                if (canSpawn)
+                {
+                    RocketRain();
+                }
             }
         }
     }
@@ -190,6 +196,10 @@ public class RocketSpawner : MonoBehaviour
 
     IEnumerator CountingDownToNextWave()
     {
+        while (Menu.GameIsPause)
+        {
+            yield return null;
+        }
         canSpawn = false;
         yield return new WaitForSecondsRealtime(UnityEngine.Random.Range(minWaitingTimeForNextWave, maxWaitingTimeForNextWave));
         canSpawn = true;
@@ -197,16 +207,22 @@ public class RocketSpawner : MonoBehaviour
 
     IEnumerator CountingDownToEndOfLvl()
     {
+        while (Menu.GameIsPause)
+        {
+            yield return null;
+        }
         isWatingForLvlEnd = true;
         yield return new WaitForSecondsRealtime(waitingTimeForEndOfLvl);
         screenOfEndLvl.SetActive(true);
         Debug.Log("End of lvl!");
         AllRocketsSpawned?.Invoke();
         isWatingForLvlEnd = false;
+        nonShooting = true;
         if (!isGameOver)
         {
             yield return new WaitForSecondsRealtime(5);
             screenOfEndLvl.SetActive(false);
+            nonShooting = false;
             LevelManager.Instance.StartNewLevel();
         }
         else
@@ -223,7 +239,8 @@ public class RocketSpawner : MonoBehaviour
             yield return new WaitForSecondsRealtime(2);
 
             GameOver?.Invoke();
-                       
+            Menu.isPlay = false;
+
             SceneManager.LoadScene(0);
         }
         
