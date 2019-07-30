@@ -70,7 +70,7 @@ public class RocketSpawner : MonoBehaviour
         //Debug.Log("Number of rockets: " + _numberOfRockets);
         if (_numberOfRockets <= 0)
         {
-            Debug.Log("All rocket destroyed!");
+            //Debug.Log("All rocket destroyed!");
             //AllRocketsDestroyed?.Invoke();
         }
     }
@@ -85,12 +85,12 @@ public class RocketSpawner : MonoBehaviour
         if (numberOfRocketToSpawn >= 3)
         {
             int rocketsInWave = UnityEngine.Random.Range(1, 4);
-            Debug.Log("Rockets in wave: " + rocketsInWave);
+            //Debug.Log("Rockets in wave: " + rocketsInWave);
 
             if (rocketsInWave >= 3)
             {
                 float randomBB = UnityEngine.Random.Range(0, 101);
-                Debug.LogError("Chance for BB: " + randomBB);
+                //Debug.LogError("Chance for BB: " + randomBB);
 
                 if (randomBB <= chanceForBB)
                 {
@@ -107,7 +107,7 @@ public class RocketSpawner : MonoBehaviour
             }
 
             numberOfRocketToSpawn -= rocketsInWave;
-            Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
+            //Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
 
             StartCoroutine(CountingDownToNextWave());
 
@@ -115,10 +115,10 @@ public class RocketSpawner : MonoBehaviour
         if (numberOfRocketToSpawn == 2)
         {
             int rocketsInWave = UnityEngine.Random.Range(1, 3);
-            Debug.Log("Rockets in wave: " + rocketsInWave);
+            //Debug.Log("Rockets in wave: " + rocketsInWave);
             Wave(rocketsInWave);
             numberOfRocketToSpawn -= rocketsInWave;
-            Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
+            //Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
 
             StartCoroutine(CountingDownToNextWave());
 
@@ -126,17 +126,17 @@ public class RocketSpawner : MonoBehaviour
         if (numberOfRocketToSpawn == 1)
         {
             Wave(numberOfRocketToSpawn);
-            Debug.Log("Rockets in wave: " + numberOfRocketToSpawn);
+            //Debug.Log("Rockets in wave: " + numberOfRocketToSpawn);
             Wave(numberOfRocketToSpawn);
             numberOfRocketToSpawn--;
-            Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
+            //Debug.Log("Left rocekts to spawn: " + numberOfRocketToSpawn);
 
             StartCoroutine(CountingDownToNextWave());
 
         } else
         if (numberOfRocketToSpawn == 0)
         {
-            Debug.Log("It's all rockets.");
+            //Debug.Log("It's all rockets.");
             
             StartCoroutine(CountingDownToEndOfLvl());
 
@@ -165,18 +165,18 @@ public class RocketSpawner : MonoBehaviour
                 }
             }
             positionsList.Add(new Vector3(x, 4, 0));
-            Debug.Log("Now postition: " + positionsList[i].x);
+            //Debug.Log("Now postition: " + positionsList[i].x);
         }
         maxPosition = positionsList.Max(vector3 => vector3.x);
         minPosition = positionsList.Min(vector3 => vector3.x);
-        Debug.Log("Mini: " + minPosition + ", max: " + maxPosition + " positions.");
+        //Debug.Log("Mini: " + minPosition + ", max: " + maxPosition + " positions.");
 
         minAngle = Mathf.Atan2(-6f - minPosition, -8.8f) * 2 * Mathf.PI;
         maxAngle = Mathf.Atan2(6f - maxPosition, -8.8f) * 2 * Mathf.PI;
-        Debug.Log("Mini: " + minAngle + ", max: " + maxAngle + " angles.");
+        //Debug.Log("Mini: " + minAngle + ", max: " + maxAngle + " angles.");
 
         finalAngle = UnityEngine.Random.Range(minAngle, maxAngle);
-        Debug.Log("Final angle: " + finalAngle);
+        //Debug.Log("Final angle: " + finalAngle);
 
         Quaternion spawnRotation = this.transform.rotation * Quaternion.Euler(0, finalAngle, 0);
 
