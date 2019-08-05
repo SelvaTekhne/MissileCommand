@@ -10,7 +10,7 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
     [SerializeField] private float speed = 1;
     [SerializeField] private float protectionDuration = 1.5f;
     public CapsuleCollider rocketCollider;
-    public TrailRenderer trailRenderer;
+    public GameObject trailRenderer;
 
     public void Awake()
     {

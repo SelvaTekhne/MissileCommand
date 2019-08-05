@@ -13,6 +13,8 @@ public class City : MonoBehaviour, IDestroyable
     {
         //Debug.Log("-bum!");
         Instantiate(nuke, transform.position + new Vector3(0,1,0), Quaternion.identity);
+        explosionSound.volume = 0.6f;
+        explosionSound.spatialBlend = 1f;
         explosionSound.Play();
 
         Destroyed?.Invoke();

@@ -8,7 +8,9 @@ public class Bullet : MonoBehaviour
 
 	[SerializeField] private float speed = 1;
 	[SerializeField] private GameObject explosionEffect;
-    [SerializeField] private ParticleSystem particleTrail;
+    [SerializeField] private GameObject particleTrail;
+
+    //private GameObject whateva;
  
 	void Update()
     {
@@ -21,8 +23,8 @@ public class Bullet : MonoBehaviour
             particleTrail.transform.parent = null;
             Destroy(particleTrail.gameObject, 13);
             Destroy(this.gameObject);
-            //Instantiate
-            //Destroy(explosionEffect.gameObject);
+            
+            //Destroy(whateva, );
         }
 	}
 

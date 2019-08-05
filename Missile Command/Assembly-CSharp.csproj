@@ -75,10 +75,14 @@
     <Compile Include="Assets\Scripts\LevelManager.cs" />
     <Compile Include="Assets\Scripts\Menu.cs" />
     <Compile Include="Assets\Scripts\Music.cs" />
+    <Compile Include="Assets\Scripts\PerkMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerShooting.cs" />
     <Compile Include="Assets\Scripts\PointsCounter.cs" />
+    <Compile Include="Assets\Scripts\PreksInfluence.cs" />
     <Compile Include="Assets\Scripts\RocketSpawner.cs" />
     <Compile Include="Assets\Scripts\ShakeScreen.cs" />
+    <Compile Include="Assets\Scripts\ShockWave.cs" />
+    <Compile Include="Assets\Scripts\SkullAnimation.cs" />
     <None Include="Assets\Universal Sound FX\#Game Genre References\8bit and Retro.txt" />
     <None Include="Assets\SimpleFX\Materials\UnlitVertexColour_Alpha.shader" />
     <Reference Include="Unity.Timeline.Editor">
