@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00e78e4e1d58aad4e993ae05f13312bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nuke: {fileID: 191186, guid: 079954accd64b32419ec069129c81273, type: 3}
+  nuke: {fileID: 100000, guid: c9d5cd88175043e4682f5575c3340d37, type: 3}
   explosionSound: {fileID: -6286325724867552932}
 --- !u!64 &3317338944666373397
 MeshCollider:
@@ -275,7 +275,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ea27d88ef9e702b47b3115c7ca9b8d48, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.03
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -288,7 +288,7 @@ AudioSource:
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
-  BypassListenerEffects: 0
+  BypassListenerEffects: 1
   BypassReverbZones: 0
   rolloffCustomCurve:
     serializedVersion: 2
@@ -319,7 +319,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

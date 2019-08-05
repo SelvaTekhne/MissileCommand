@@ -10,6 +10,15 @@ public class Menu : MonoBehaviour
     public GameObject PlayButton;
     public GameObject ProtectText;
 
+    private void Awake()
+    {
+        //int width = 1024;
+        //int height = 768;
+        bool isFullScreen = false;
+
+        //Screen.SetResolution(width, height, isFullScreen);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
