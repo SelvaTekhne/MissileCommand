@@ -7,8 +7,11 @@ using System.Linq;
 public class EnemyRocket : MonoBehaviour, IDestroyable
 {
     public static event Action Destroyed;
+    public static event Action<int> RocketHitIntoPlayer;
+
     [SerializeField] private float speed = 1;
     [SerializeField] private float protectionDuration = 1.5f;
+    [SerializeField] private int damageForBullets = 1;
     public CapsuleCollider rocketCollider;
     public GameObject trailRenderer;
 
@@ -51,6 +54,12 @@ public class EnemyRocket : MonoBehaviour, IDestroyable
             {
                 destroyable.Destroy();
             }
+        }
+        if (collision.gameObject.tag == "Player")
+        {
+            //Debug.LogError("Player hitted!");
+            RocketHitIntoPlayer?.Invoke(damageForBullets);
+            Destroy(gameObject);
         }
         //trailRenderer.transform.parent = null;
         //Destroy(trailRenderer.gameObject, 13);

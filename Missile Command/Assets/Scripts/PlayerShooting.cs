@@ -13,7 +13,7 @@ public class PlayerShooting : MonoBehaviour
     public int totalNumberOfBullets;
     public int actualNumberOfBullets;
     public static event Action Reload;
-	public Vector3 targetPosition;
+    public Vector3 targetPosition;
 
 	public GameObject playerBullet;
 	public GameObject shootingStartPoint;
@@ -25,6 +25,7 @@ public class PlayerShooting : MonoBehaviour
 		mainCamera = Camera.main;
         LevelManager.LevelStarted += SetBullets;
         CitiesController.AllCitiesDestroyed += Apocalypse;
+        EnemyRocket.RocketHitIntoPlayer += BulletsDecreasing;
         BigBrother.BBHitIntoPlayer += BulletsDecreasing;
         //totalNumberOfBullets = numberOfBulletsInLoad * numberOfLoads;
     }
@@ -33,6 +34,7 @@ public class PlayerShooting : MonoBehaviour
     {
         LevelManager.LevelStarted -= SetBullets;
         CitiesController.AllCitiesDestroyed -= Apocalypse;
+        EnemyRocket.RocketHitIntoPlayer -= BulletsDecreasing;
         BigBrother.BBHitIntoPlayer -= BulletsDecreasing;
     }
 
@@ -76,11 +78,9 @@ public class PlayerShooting : MonoBehaviour
         }
     }
 
-    void BulletsDecreasing()
-    {
-        int BBDamage = 10;
-
-        for (int i = 0; i < BBDamage && actualNumberOfBullets > 0; i++)
+    public void BulletsDecreasing(int damage)
+    {        
+        for (int i = 0; i < damage && actualNumberOfBullets > 0; i++)
         {
             actualNumberOfBullets--;
         }

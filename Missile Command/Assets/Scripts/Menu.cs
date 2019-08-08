@@ -12,11 +12,11 @@ public class Menu : MonoBehaviour
 
     private void Awake()
     {
-        int width = 1024;
-        int height = 768;
+        //int width = 1024;
+        //int height = 768;
         bool isFullScreen = false;
 
-        Screen.SetResolution(width, height, isFullScreen);
+        //Screen.SetResolution(width, height, isFullScreen);
     }
 
     void Update()

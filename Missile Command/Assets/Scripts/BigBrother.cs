@@ -6,8 +6,10 @@ using System;
 public class BigBrother : MonoBehaviour, IDestroyable
 {
     public static event Action Destroyed;
-    public static event Action BBHitIntoPlayer;
+    public static event Action<int> BBHitIntoPlayer;
+
     [SerializeField] private float speed = 1, noiseInfluence = 1;
+    [SerializeField] private int damageForBullets = 10;
     public GameObject enemyRocket;
     private Transform target;
     [Range(1, 5)]
@@ -83,7 +85,7 @@ public class BigBrother : MonoBehaviour, IDestroyable
         if(collision.gameObject.tag == "Player")
         {
             //Debug.LogError("Player hitted!");
-            BBHitIntoPlayer?.Invoke();
+            BBHitIntoPlayer?.Invoke(damageForBullets);
             Destroy(gameObject);
         }
         
